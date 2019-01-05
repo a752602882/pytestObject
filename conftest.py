@@ -4,6 +4,7 @@
 
 import pytest
 from selenium import webdriver
+from page.loginpage import _login
 
 
 _driver = None
@@ -47,8 +48,16 @@ def driver(request):
     request.addfinalizer(end)
     return _driver
 
-
-
+@pytest.fixture(scope="function",autouse=True)
+def login(request,driver,host):
+    '''登录功能'''
+    _login(driver,host)
+    #注册方法实际上就是结束的时候执行的方法
+    def clearSession():
+        print("————清除缓存————")
+        driver.delete_all_cookies()
+        driver.refresh()
+    request.addfinalizer(clearSession)
 
 
 '''

@@ -15,12 +15,8 @@ def _login(driver,host,user='18780113305',psw='5423110.'):
     '''
     登录函数
     '''
-    print('--session --start---!')
-    driver.get(host+'/user/newlogin')
-    driver.delete_all_cookies()
-    driver.refresh()
-
     imooc = Base(driver)
+    driver.get(host+'/user/newlogin')
     imooc.max()
     imooc.sendKeys(loc1,user)
     imooc.sendKeys(loc2,psw)
